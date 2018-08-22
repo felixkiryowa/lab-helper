@@ -58,13 +58,37 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>Get More</h3>
+                <h3>DETAILS</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                   <li><a><i class="fa fa-eye"></i>  Tests In Details  <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
+					                 <?php
+
+                                  require_once 'php_action/db_connect.php';
+
+                                  $sql = "SELECT test FROM laboratory_test_menu INNER JOIN performed_tests ON laboratory_test_menu.id=performed_tests.test_id";
+                                  $query = $con->query($sql);
+                                  $test_array = array();
+                                 
+                                  while ($row = mysqli_fetch_array($query) ) {
+                                      if(in_array($row['test'],$test_array)){
+
+                                      }else{
+                                        array_push($test_array,$row['test']);
+                                      }
+                              
+                                  }
+
+                                 // echo json_encode($test_array);
+
+                                      
+                                  foreach ($test_array as  $value) {
+                                      echo '<li><a href="#" id="'.$value.'" class="specific_test" >'.$value.'</a></li>';
+                                  }
+
+                              
+                              ?>
+                      
                     </ul>
                   </li>
                 </ul>
@@ -84,7 +108,7 @@
               <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
-
+              
             </nav>
           </div>
         </div>
@@ -93,37 +117,17 @@
         <!-- page content -->
         <div class="right_col" role="main">
           <!-- top tiles -->
-          <div class="row tile_count">
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
-              <div class="count">2500</div>
-              <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+          <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4">
+			   <p align="center"><i class="fa fa-calendar"></i>  <span  id='date-part'></span></p>
+			</div>
+            <div class="col-md- col-sm-4 col-xs-4">
+             
+			  <p align="center"><i class="fa fa-clock-o"></i> <span id='time-part'></span></p>
+              
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-clock-o"></i> Average Time</span>
-              <div class="count">123.50</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Total Males</span>
-              <div class="count green">2,500</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Total Females</span>
-              <div class="count">4,567</div>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Total Collections</span>
-              <div class="count">2,315</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Total Connections</span>
-              <div class="count">7,325</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
+			<div class="col-md-4 col-sm-4 col-xs-4"></div>
+            
           </div>
           <!-- /top tiles -->
 
@@ -133,7 +137,7 @@
 
                 <div class="row x_title">
                   <div class="col-md-12">
-                    <h3><b>PERFORMED TESTS</b></h3>
+                    <h3>PERFORMED TESTS</h3>
                     <button class="btn btn-info pull-right" data-toggle="modal" data-target=".add_new_test"  id="new_test"><i class="glyphicon glyphicon-calendar fa fa-plus-circle"></i> Add New Test</button>
                   </div>
                  

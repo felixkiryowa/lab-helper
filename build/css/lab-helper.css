@@ -10,3 +10,11 @@
     border-left:1px solid #2A3F54;
     border-right:1px solid #2A3F54;
 }
+
+#date-part {
+    font-size: 1em;
+}
+
+#time-part {
+    font-size: 1em;
+}

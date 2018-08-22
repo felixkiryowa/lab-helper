@@ -10,8 +10,9 @@ require_once 'db_connect.php'; //if form is submitted if($_POST) { $validator = 
     $row2 = $ff->fetch_assoc();
     
     $test_id = $row2['id'];
+    $date = date("Y-m-d");
 
-    $sql = "INSERT INTO performed_tests(sample_id,reception_time,test_id) VALUES ('$sampe_id','$prefered_format','$test_id')";
+    $sql = "INSERT INTO performed_tests(sample_id,reception_time,test_id,day_date) VALUES ('$sampe_id','$prefered_format','$test_id','$date')";
     
     $query = $con->query($sql);
 

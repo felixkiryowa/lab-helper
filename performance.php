@@ -34,7 +34,8 @@
     <link href="vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <link href="build/css/jquery.dataTables.min.css" rel="stylesheet">
-    
+    <!--circular css-->
+    <link href="build/css/plugin.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
 	
@@ -83,7 +84,7 @@
 
                                       
                                   foreach ($test_array as  $value) {
-                                      echo '<li><a href="index.html">'.$value.'</a></li>';
+                                      echo '<li><a href="#" id="'.$value.'" class="specific_test" >'.$value.'</a></li>';
                                   }
 
                               
@@ -142,6 +143,39 @@
              </div>
         </div>
         <!-- /page content -->
+
+        <!--test details modal-->
+        <div class="modal fade" id="details_about_a_test" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title test_title" id="myModalLabel"></h4>
+                        </div>
+                        <div class="modal-body">
+                         <div class="completion_messages"></div>
+                          <div class="row">
+                             <div class="col-sm-4"></div>
+                             <div class="col-sm-5">
+                                <div class="my-progress-bar">
+		  
+                                 </div> 
+                             </div>
+                             <div class="col-sm-3"></div>
+                          </div>
+                          
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <!-- <button type="button" id="completion"  class="btn btn-primary">Save</button> -->
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+        <!--test details modal -->
        
         <!-- footer content -->
         <footer>
@@ -209,8 +243,10 @@
     <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
      <!-- bootstrap-datetimepicker -->    
     <script src="vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!--plugin.js -->
     <!-- Custom Theme Scripts -->
+    <script src="build/js/plugin.js"></script>
     <script src="build/js/custom.min.js"></script>
-	<script src="build/js/lab-helper.js"></script>
+	  <script src="build/js/lab-helper.js"></script>
   </body>
 </html>

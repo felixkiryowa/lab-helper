@@ -178,9 +178,34 @@ $(document).ready(function(){
         });
     });
 
+   //clicking a specific tes
+    $('.specific_test').click(function(){
+        var specific_test = $(this).attr("id");
+        //alert(specific_test);
+        $.ajax({
+            url: "php_action/test_details.php",
+            method: "POST",
+            data: {
+                specific_test: specific_test
+            },
+            dataType: "json",
+            success: function (data) {
 
+            }
+        });
+   });
   
 });
+
+
+//Time and date display
+var interval = setInterval(function () {
+    var momentNow = moment();
+    $('#date-part').html(momentNow.format('YYYY MMMM DD') + ' '
+        + momentNow.format('dddd')
+            .substring(0, 3).toUpperCase());
+    $('#time-part').html(momentNow.format('A hh:mm:ss'));
+}, 100);
 
 
 //for retrieving from the database
