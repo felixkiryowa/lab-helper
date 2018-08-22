@@ -1,0 +1,12 @@
+.hovering:hover{
+    background-color: #F1F1F1;
+}
+
+.forDisplay{
+    /**border-left: 1px;
+    border-right: 1px;
+    **/
+    
+    border-left:1px solid #2A3F54;
+    border-right:1px solid #2A3F54;
+}
