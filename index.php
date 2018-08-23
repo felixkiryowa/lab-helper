@@ -37,7 +37,7 @@
     
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
-	
+	  <link href="build/css/plugin.css" rel="stylesheet">
 	<link href="build/css/lab-helper.css" rel="stylesheet">
   </head>
 
@@ -57,7 +57,7 @@
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
+              <div class="menu_section" id="details_section">
                 <h3>DETAILS</h3>
                 <ul class="nav side-menu">
                    <li><a><i class="fa fa-eye"></i>  Tests In Details  <span class="fa fa-chevron-down"></span></a>
@@ -269,6 +269,37 @@
                     </div>
                   </div>
         <!--model to complete adding a test -->
+         <!--test details modal-->
+        <div class="modal fade" id="details_about_a_test" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title test_title" id="myModalLabel" align="center"></h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                             <div class="col-sm-4"></div>
+                             <div class="col-sm-5">
+                                <div class="my-progress-bar">
+		  
+                                 </div> 
+                             </div>
+                             <div class="col-sm-3"></div>
+                          </div>
+                          
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <!-- <button type="button" id="completion"  class="btn btn-primary">Save</button> -->
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+        <!--test details modal -->
         <!-- footer content -->
         <footer>
           <div class="pull-right">
@@ -336,7 +367,8 @@
      <!-- bootstrap-datetimepicker -->    
     <script src="vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- Custom Theme Scripts -->
-    <script src="build/js/custom.min.js"></script>
-	<script src="build/js/lab-helper.js"></script>
+     <script src="build/js/plugin.js"></script>
+     <script src="build/js/custom.min.js"></script>
+	   <script src="build/js/lab-helper.js"></script>
   </body>
 </html>

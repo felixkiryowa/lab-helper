@@ -181,21 +181,42 @@ $(document).ready(function(){
    //clicking a specific tes
     $('.specific_test').click(function(){
         var specific_test = $(this).attr("id");
-        //alert(specific_test);
+        // alert(specific_test);
         $.ajax({
             url: "php_action/test_details.php",
             method: "POST",
             data: {
                 specific_test: specific_test
             },
-            dataType: "json",
-            success: function (data) {
+            dataType: [],
+            success: function(response) {
+                $('#details_about_a_test').modal('show');
+                var res = $.parseJSON(response);
+                // alert(res.result[0])
+                $('.test_title').html(res.result[2]);
+                $(".my-progress-bar").circularProgress({
+                    line_width: 4,
+                    color: "red",
+                    starting_position: 0, // 12.00 o' clock position, 25 stands for 3.00 o'clock (clock-wise)
+                    percent: 0, // percent starts from
+                    percentage: true,
+                    text: "Completed " + res.result[2] + "Tests"
+                }).circularProgress('animate',5, 3000);
 
             }
         });
    });
   
 });
+
+//refreshing a section sidebar holding test
+
+setInterval(function () {
+    my_function();
+}, 3000);
+function my_function() {
+    $('#details_section').load();
+}
 
 
 //Time and date display
