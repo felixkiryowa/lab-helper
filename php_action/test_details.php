@@ -24,15 +24,16 @@ while ($row = $query->fetch_assoc()){
     }else{
            array_push($not_fine_array,$row['elapsed_time']);
     }
-
 }
 
 $fine_array_count = count($fine_array);
 $not_fine_array_count = count($not_fine_array);
 
-$merge_array = array('fine'=>$fine_array_count,'notfine'=>$not_fine_array_count);
+$total = $fine_array_count + $not_fine_array_count;
 
-$my_array = array($fine_array_count,$not_fine_array_count,$test_name);
+//$merge_array = array('fine'=>$fine_array_count,'notfine'=>$not_fine_array_count);
+
+$my_array = array($fine_array_count,$not_fine_array_count,$test_name,$total);
 $data['result']= $my_array;
 //$con->close();
 

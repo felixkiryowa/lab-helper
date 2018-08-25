@@ -160,6 +160,8 @@ $(document).ready(function(){
                             // reload the datatables
                             lab_testTable.ajax.reload(null, false);
                             // this function is built in function of datatables;
+                            $('#details_section').load('php_action/details_about_a_test.php');
+                            $('#total_test_in_db').load('php_action/total_tests.php');
 
 
                         } else {
@@ -181,6 +183,7 @@ $(document).ready(function(){
    //clicking a specific tes
     $('.specific_test').click(function(){
         var specific_test = $(this).attr("id");
+        $(".my-progress-bar").html("");
         // alert(specific_test);
         $.ajax({
             url: "php_action/test_details.php",
@@ -193,15 +196,22 @@ $(document).ready(function(){
                 $('#details_about_a_test').modal('show');
                 var res = $.parseJSON(response);
                 // alert(res.result[0])
+                var fine = res.result[0];
+                var not_fine = res.result[1];
+                var total = res.result[3];
+                var percentage = parseInt((fine / total) * 100);
+                var fine_percentage = 
                 $('.test_title').html(res.result[2]);
+                $('#fine').html(fine);
+                $('#not_fine').html(not_fine);
                 $(".my-progress-bar").circularProgress({
                     line_width: 4,
                     color: "red",
                     starting_position: 0, // 12.00 o' clock position, 25 stands for 3.00 o'clock (clock-wise)
                     percent: 0, // percent starts from
                     percentage: true,
-                    text: "Completed " + res.result[2] + "Tests"
-                }).circularProgress('animate',5, 3000);
+                    text: "Completed " + res.result[2] + ", Tests Done In Required Time"
+                }).circularProgress('animate',percentage, 2000);
 
             }
         });
@@ -210,14 +220,25 @@ $(document).ready(function(){
 });
 
 //refreshing a section sidebar holding test
+$('#details_section').load('php_action/details_about_a_test.php');
+$('#total_test_in_db').load('php_action/total_tests.php');
 
-setInterval(function () {
-    my_function();
-}, 3000);
-function my_function() {
-    $('#details_section').load();
-}
+// function refresh() {
+//     setTimeout(function(){
+        
+       
 
+//         refresh();
+//     },2000);
+  
+// }
+
+// refresh();
+//reloading a page whenever a close button is clicked
+$('#close').click(function(){
+    //location.reload(); 
+    $(".my-progress-bar").html("");
+});
 
 //Time and date display
 var interval = setInterval(function () {
@@ -233,25 +254,25 @@ var interval = setInterval(function () {
 lab_testTable = $("#lab_test").DataTable({
     "dom": 'Bfrtip',
     "buttons": [
-       // 'copy', 'csv', 'excel', 'pdf', 'print',
+       'copy', 'csv', 'excel', 'pdf', 'print',
         // {
         //     extend:'copy',
         //     exportOptions: {
         //         columns:[0,1,2,3,4]
         //     }
         // },
+        {
+            extend: 'excel',
+            exportOptions: {
+                columns: [0, 1, 2]
+             }
+        },
         // {
-        //     extend: 'excel',
+        //     extend: 'print',
         //     exportOptions: {
         //         columns: [0, 1, 2, 3, 4]
-        //      }
-        // },
-        {
-            extend: 'print',
-            exportOptions: {
-                columns: [0, 1, 2, 3, 4]
-            }   
-        }
+        //     }   
+        // }
     ],
     "ajax": "php_action/retrieve_all_tests.php",
     "order": [],
