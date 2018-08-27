@@ -240,6 +240,12 @@ $('#close').click(function(){
     $(".my-progress-bar").html("");
 });
 
+
+
+
+
+
+
 //Time and date display
 var interval = setInterval(function () {
     var momentNow = moment();

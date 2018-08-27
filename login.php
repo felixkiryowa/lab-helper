@@ -19,9 +19,9 @@
     <link href="vendors/animate.css/animate.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="build/css/custom.min.css" rel="stylesheet">
+    <link href="build/special/custom.min.css" rel="stylesheet">
   </head>
-
+  <?php include('php_action/authenticate_users.php');?>
   <body>
     
     <div class="container" style="padding-top:10px;">
@@ -37,17 +37,38 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
+            <?php  if($error['login_error'] != ""){
+              ?>
+              <div class="alert alert-danger">
+               <strong>
+               <?php
+                  echo $error['login_error'];
+                ?>
+               </strong>
+            </div>
+              <?php }?>
+           
+            <form action="" method="POST">
               <h1>Login</h1>
-			  <h1 style="font-size:40px;"><i class="fa fa-h-square"></i></h1>
-              <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+			        <h1 style="font-size:40px;"><i class="fa fa-h-square"></i></h1>
+              <div class="form-group">
+                <input type="text" class="form-control" name="username" placeholder="Username"  />
+                <span class="text text-danger">
+                  <?php
+                    echo $error['username'];
+                  ?>
+                 </span>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password"  />
+                  <span class="text text-danger">
+                  <?php
+                    echo $error['password'];
+                  ?>
+                 </span>
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
-              </div>
-              <div>
-                <button class="btn btn-dark btn-lg btn-block " >Log in</button>
+                <button class="btn btn-dark btn-lg btn-block "  type="submit" name="authenticate_users">Log in</button>
               </div>
 
               <div class="clearfix"></div>
