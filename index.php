@@ -61,8 +61,33 @@
                 <h3>DETAILS</h3>
                 <ul class="nav side-menu">
                    <li><a><i class="fa fa-eye"></i>  Tests In Details  <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu"  id="details_section">
-					                 
+                    <ul class="nav child_menu" >
+					                   <?php
+
+                                require_once 'php_action/db_connect.php';
+
+                                $sql = "SELECT test FROM laboratory_test_menu INNER JOIN performed_tests ON laboratory_test_menu.id=performed_tests.test_id";
+                                $query = $con->query($sql);
+                                $test_array = array();
+                                
+                                while ($row = mysqli_fetch_array($query) ) {
+                                    if(in_array($row['test'],$test_array)){
+
+                                    }else{
+                                    array_push($test_array,$row['test']);
+                                    }
+                            
+                                }
+
+                                // echo json_encode($test_array);
+
+                                    
+                                foreach ($test_array as  $value) {
+                                    echo '<li><a href="#" id="'.$value.'" class="specific_test" >'.$value.'</a></li>';
+                                }
+
+                              
+                         ?>  
                       
                     </ul>
                   </li>
@@ -350,7 +375,7 @@
     <script src="vendors/moment/min/moment.min.js"></script>
     <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
-     <!-- Datatables -->
+    <!-- Datatables -->
     <script src="vendors/datatables.net-bs/js/jquery.dataTables.min.js"></script>
     <script src="vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>

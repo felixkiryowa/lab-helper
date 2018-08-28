@@ -17,12 +17,29 @@
     <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+     <!-- bootstrap-datetimepicker -->
+    <link href="vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    
+        <!-- Datatables -->
+    <link href="vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <link href="build/css/jquery.dataTables.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
   </head>
   <?php include('php_action/authenticate_users.php');?>
+  <?php //include('php_action/trash.php');?>
   <body class="nav-md">
+    <?php
+    if($_SESSION['login_user'] == null)
+     { 
+       header("location: login.php");
+      } else{
+     ?>
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -50,17 +67,12 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
+                <h3>Amin Dashboard</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
-                  </li>
+                  <li><a id="home"><i class="fa fa-home"></i> Home</a></li>
                   <li><a id="users"><i class="fa fa-users"></i> Register User </a></li>
-                 
+                  <li><a id="trash"><i class="fa fa-trash"></i> Trash Data </a></li>
+                  <li><a id="tests_manager"><i class="fa fa-file-text-o"></i> Manage Tests </a></li>
                 </ul>
               </div>
               
@@ -82,7 +94,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt=""><?php echo $_SESSION['login_user'];?>
+                    <?php echo $_SESSION['login_user'];?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -106,6 +118,11 @@
                   <div class="x_content">
                   
                     <div class="col-md-12 col-sm-12 col-xs-12" id="div_filter">
+                      <h3 align="center">Filter Data By Month</h3>
+                       <br>
+                        <br>
+                        <br>
+                        <br>
                       <form id="demo-form2" action="filter.php" method="POST" data-parsley-validate class="form-horizontal form-label-left">
                         <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="filter">Filter Data By Month<span class="required"></span>
@@ -119,8 +136,71 @@
                         </div>
                         
                       </form>
-				
+				               <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                     </div>
+                    <!--manage test -->
+                    <div class="col-md-12 col-sm-12 col-xs-12" id="div_manage_tests" style="display:none;">
+                      <h3 align="center">Manage Tests</h3>
+                      <br>
+                      <br>
+                       <table id="manage_tests" class="table table-striped table-bordered">
+                          <thead>
+                            <tr>
+                              <th>SAMPLE ID</th>
+                              <th>TEST</th>
+                              <th>RECEPTION TIME AND DATE</th>
+                              <th>DISPATCH TIME AND DATE</th>
+                              <th>ELAPSED TIME</th>
+                              <th>COMPLETE TEST</th>
+                              <th>EDIT</th>
+                              <th>DELETE</th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                                
+                          </tbody>
+                    </table>
+                    </div>
+                    <!--manage tests -->
+                    <!--delete data from the database -->
+                     <div class="col-md-12 col-sm-12 col-xs-12" id="div_delete_data" style="display:none;">
+                      <h3 align="center">Delete Data By Month</h3>
+                       <br>
+                        <br>
+                        <br>
+                      <form id="demo-form2" action="php_action/trash.php" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                        <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="filter">Filter Data By Month<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select id="selected_month" name="selected_month" class="form-control col-md-7 col-xs-12">
+                            <option value="0">- Select -</option>
+                          </select>
+                        </div>
+                        <button class="btn btn-sm btn-primary" type="submit" name="delete">Trash Data</button>
+                        </div>
+                        
+                      </form>
+				               <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                    <!-- delete data from the database -->
                      <div class="col-md-12 col-sm-12 col-xs-12" id="display_users" style="display:none;">
                          
                          <!-- Content Section -->
@@ -129,14 +209,14 @@
                                      <div class="col-md-12">
                                           <h2>Users</h2>
                                           <div class="pull-right">
-                                               <button class="btn btn-success" data-toggle="modal" data-target="#add_new_user_modal">Add New Record</button>
+                                               <button class="btn btn-success" data-toggle="modal" data-target="#add_new_user_modal"><i class="glyphicon glyphicon-calendar fa fa-plus-circle"></i> Add New User</button>
                                            </div>
                                       </div>
                               </div>
                               <div class="row">
                                 <div class="col-md-12">
-                                    <h4>Records:</h4>
-                                    <div class="records_content"></div>
+                                    <h4>User Records:</h4>
+                                    <div class="records_content table-responsive"></div>
                                 </div>
                              </div>
                           </div>
@@ -187,6 +267,90 @@
 			</div>
 		</div>
 
+<!-- Modal - Update User details -->
+<div class="modal fade" id="update_user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Update User Information</h4>
+            </div>
+            <div class="modal-body">
+ 
+                <div class="form-group">
+                    <label for="update_first_name">Names</label>
+                    <input type="text" id="update_names" placeholder="Names" class="form-control"/>
+                </div>
+ 
+                <div class="form-group">
+                    <label for="update_last_name">Username</label>
+                    <input type="text" id="update_username" placeholder="Username" class="form-control"/>
+                </div>
+ 
+                <div class="form-group">
+                    <label for="update_email">Password</label>
+                    <input type="text" id="update_password" placeholder="Password" class="form-control"/>
+                </div>
+ 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="UpdateUserDetails()" >Save Changes</button>
+                <input type="hidden" id="hidden_user_id">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- // Modal -->
+
+<!-- Modal - Update test details -->
+<div class="modal fade" id="update_test_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Update Test Information</h4>
+            </div>
+            <div class="modal-body">
+              <form action="php_action/updateTestDetails.php" method="POST">
+                <div class="form-group">
+                    <label for="update_sample_id">Sample Id</label>
+                    <input type="text" id="update_sample_id" name="update_sample_id" placeholder="Sample Id" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="update_test">Test</label>
+                    <input type="text" id="update_test" name="update_test" placeholder="Test" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="update_reception_datetime">Reception Date And Time:</label>
+                    <div class='input-group date' id='reception_datetime'>
+                        <input type='text' class="form-control" id="update_receptiondatetime" name="receptiondatetime" />
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="update_dispatch_datetime">Dispatch Date And Time:</label>
+                    <div class='input-group date' id='dispatch_datetime'>
+                        <input type='text' class="form-control" id="update_dispatchdatetime" name="dispatchdatetime" />
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button  class="btn btn-primary" type="submit" >Save Changes</button>
+                <input type="hidden" name="specific_test_id" id="hidden_test_id">
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- // Modal -->
+
 
         <!-- footer content -->
         <footer>
@@ -198,7 +362,7 @@
         <!-- /footer content -->
       </div>
     </div>
-
+      <?php } ?>
     <!-- jQuery -->
     <script src="vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -207,8 +371,7 @@
     <script src="vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="vendors/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="vendors/Chart.js/dist/Chart.min.js"></script>
+  
     <!-- jQuery Sparklines -->
     <script src="vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
     <!-- Flot -->
@@ -226,12 +389,199 @@
     <!-- bootstrap-daterangepicker -->
     <script src="vendors/moment/min/moment.min.js"></script>
     <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- bootstrap-datetimepicker -->    
+    <script src="vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+     <!-- Datatables -->
+    <script src="vendors/datatables.net-bs/js/jquery.dataTables.min.js"></script>
+    <script src="vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="vendors/jszip/dist/jszip.min.js"></script>
+    <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
     
     <!-- Custom Theme Scripts -->
-	<script src="build/js/special.js"></script>
+
+	
   <script src="build/js/custom.min.js"></script>
+  <script src="build/js/special.js"></script>
   <script>
-  
+ 
+    function DeleteTest(id) {
+         var conf = confirm("Are you sure, do you really want to delete a test?");
+        if (conf == true) {
+            $.post("php_action/delete_test.php", {
+                id: id
+            },
+                function (data, status) {
+                    // reload Users by using readRecords();
+                    //readRecords();
+                    window.location.href="dashboard.php";
+                }
+            );
+        }
+    }
+
+      function GetTestDetails(id) {
+      // Add User ID to the hidden field for furture usage
+      $("#hidden_test_id").val(id);
+      $.post("php_action/read_specific_test.php", {
+              id: id
+          },
+          function (data, status) {
+              // PARSE json data
+              var test = JSON.parse(data);
+              var reception_datetime = test.reception_time;
+              var dispatch_datetime = test.dispatch_time;
+              // alert(reception_datetime);
+              // alert(dispatch_datetime);
+              // Assing existing values to the modal popup fields
+              $("#update_sample_id").val(test.sample_id);
+              $("#update_test").val(test.test);
+              $("#update_receptiondatetime").val(reception_datetime);
+              $("#update_dispatchdatetime").val(dispatch_datetime);
+          }
+      );
+      // Open modal popup
+      $("#update_test_modal").modal("show");
+    }
+
+    // function UpdateTestDetails(){
+    //    // get values
+    // var sample_id = $("#update_sample_id").val();
+    // var test = $("#update_test").val();
+    // var receptiondatetime = $("#update_receptiondatetime").val();
+    // var dispatchdatetime = $("#update_dispatchdatetime").val();
+ 
+    // // get hidden field value
+    // var id = $("#hidden_test_id").val();
+ 
+    // // Update the details by requesting to the server using ajax
+    // $.post("php_action/updateTestDetails.php", {
+    //         id: id,
+    //         sample_id: sample_id,
+    //         test: test,
+    //         receptiondatetime: receptiondatetime,
+    //         dispatchdatetime: dispatchdatetime
+    //     },
+    //     function (data, status) {
+    //         if(data.success == true){
+    //               // hide modal popup
+    //               $("#update_test_modal").modal("hide");
+    //               // reload Users by using readRecords();
+    //               alert("Successfully Updated Test Information");
+    //             window.location.href='dashboard.php';
+    //         }else{
+    //             alert("Failed To Update Test Information");
+    //         }
+          
+    //     }
+    // );
+
+    // }
+
+      
+      // READ records
+    function readRecords() {
+        $.get("php_action/users/read_records.php", {}, function (data, status) {
+            $(".records_content").html(data);
+        });
+    }
+
+    $('#adding_users').click(function(){
+        // get values
+        var name = $("#names").val();
+        var username = $("#username").val();
+        var password = $("#password").val();
+
+        // Add record
+        $.post("php_action/users/add_user.php", {
+            name: name,
+            username: username,
+            password: password
+        }, function (data, status) {
+            // close the popup
+            alert("Successfully Added a new user");
+            $("#add_new_user_modal").modal("hide");
+
+            // read records again
+            readRecords();
+
+            // clear fields from the popup
+            $("#names").val("");
+            $("#username").val("");
+            $("#password").val("");
+        });
+    });
+
+     function DeleteUser(id) {
+        var conf = confirm("Are you sure, do you really want to delete User?");
+        if (conf == true) {
+            $.post("php_action/users/delete_user.php", {
+                id: id
+            },
+                function (data, status) {
+                    // reload Users by using readRecords();
+                    readRecords();
+                }
+            );
+        }
+    }
+    
+    function GetUserDetails(id) {
+      // Add User ID to the hidden field for furture usage
+      $("#hidden_user_id").val(id);
+      $.post("php_action/users/read_specific_user.php", {
+              id: id
+          },
+          function (data, status) {
+              // PARSE json data
+              var user = JSON.parse(data);
+              // Assing existing values to the modal popup fields
+              $("#update_names").val(user.name);
+              $("#update_username").val(user.username);
+              $("#update_password").val(user.password);
+          }
+      );
+      // Open modal popup
+      $("#update_user_modal").modal("show");
+    }
+
+    function UpdateUserDetails() {
+    // get values
+    var name = $("#update_names").val();
+    var username = $("#update_username").val();
+    var password = $("#update_password").val();
+ 
+    // get hidden field value
+    var id = $("#hidden_user_id").val();
+ 
+    // Update the details by requesting to the server using ajax
+    $.post("php_action/users/updateUserDetails.php", {
+            id: id,
+            name: name,
+            username: username,
+            password: password
+        },
+        function (data, status) {
+
+            // hide modal popup
+            $("#update_user_modal").modal("hide");
+            // reload Users by using readRecords();
+            alert("Successfully Updated User Information");
+            readRecords();
+        }
+    );
+}
   </script>
   </body>
 </html>

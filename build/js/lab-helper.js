@@ -160,7 +160,7 @@ $(document).ready(function(){
                             // reload the datatables
                             lab_testTable.ajax.reload(null, false);
                             // this function is built in function of datatables;
-                            $('#details_section').load('php_action/details_about_a_test.php');
+                            //$('#details_section').load('php_action/details_about_a_test.php');
                             $('#total_test_in_db').load('php_action/total_tests.php');
 
 
@@ -220,7 +220,7 @@ $(document).ready(function(){
 });
 
 //refreshing a section sidebar holding test
-$('#details_section').load('php_action/details_about_a_test.php');
+//$('#details_section').load('php_action/details_about_a_test.php');
 $('#total_test_in_db').load('php_action/total_tests.php');
 
 // function refresh() {

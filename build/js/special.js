@@ -15,10 +15,27 @@ function get_months() {
     });
 }
 
+function get_months_for_deleting_data() {
+    $.ajax({
+        url: "php_action/get_months.php",
+        method: "GET",
+        dataType: [],
+        success: function (response) {
+            //alert(response);
+            var months = $.parseJSON(response);
+            //alert(months.length);
+            for (index = 0; index < months.length; index++) {
+                $("#selected_month").append("<option value='" + months[index] + "'>" + months[index] + "</option>");
+
+            }
+        }
+    });
+}
 
 //populating a select with months 
 $(document).ready(function () {
     get_months();
+    get_months_for_deleting_data()
     readRecords();
 
     $("#sel_month").change(function () {
@@ -29,62 +46,68 @@ $(document).ready(function () {
     $('#users').click(function(){
         $('#div_filter').hide();
         $('#display_users').show();
+        $('#div_delete_data').hide();
+        $('#div_manage_tests').hide();
     });
 
-    //adding a user
-    // Add Record
-
-    // READ records
-    function readRecords() {
-        $.get("php_action/users/read_records.php", {}, function (data, status) {
-            $(".records_content").html(data);
-        });
-    }
-
-    $('#adding_users').click(function(){
-        // get values
-        var name = $("#names").val();
-        var username = $("#username").val();
-        var password = $("#password").val();
-
-        // Add record
-        $.post("php_action/users/add_user.php", {
-            name: name,
-            username: username,
-            password: password
-        }, function (data, status) {
-            // close the popup
-            $("#add_new_user_modal").modal("hide");
-
-            // read records again
-            readRecords();
-
-            // clear fields from the popup
-            $("#names").val("");
-            $("#username").val("");
-            $("#password").val("");
-        });
+    $('#home').click(function(){
+        $('#div_filter').show();
+        $('#display_users').hide();
+        $('#div_delete_data').hide();
+        $('#div_manage_tests').hide();
     });
-      
-    function DeleteUser(id) {
-        var conf = confirm("Are you sure, do you really want to delete User?");
-        if (conf == true) {
-            $.post("php_action/users/delete_user.php", {
-                id: id
-            },
-                function (data, status) {
-                    // reload Users by using readRecords();
-                    readRecords();
-                }
-            );
-        }
-    }  
 
-    $('#summary').DataTable({
+
+    $('#trash').click(function(){
+        $('#div_filter').hide();
+        $('#display_users').hide();
+        $('#div_delete_data').show();
+        $('#div_manage_tests').hide();
+    });
+
+     $('#tests_manager').click(function () {
+         $('#div_filter').hide();
+         $('#display_users').hide();
+         $('#div_delete_data').hide();
+         $('#div_manage_tests').show();
+     });
+
+    $("#manage_tests").DataTable({
         "dom": 'Bfrtip',
         "buttons": [
-            'copy', 'csv', 'excel', 'pdf', 'print',
-        ]
+            //'copy', 'csv', 'excel', 'pdf',
+            {
+                extend:'copy',
+                exportOptions: {
+                    columns:[0,1,2,3,4]
+                }
+            },
+            {
+                extend: 'csv',
+                exportOptions: {
+                    columns: [0, 1, 2,3,4]
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
+                }   
+            }
+        ],
+        "ajax": "php_action/manage_tests.php",
+        "order": [],
     });
 
+    //Reception Date Picker
+    $('#reception_datetime').datetimepicker({
+        format: 'DD/MM/YYYY hh:mm:ss'
+    });
+
+    //Reception Date Picker
+    $('#dispatch_datetime').datetimepicker({
+        format: 'DD/MM/YYYY hh:mm:ss'
+    });
+
+   
 });

@@ -20,6 +20,7 @@
      }
  
     if(empty(array_filter($error))){
+      
       $sq="SELECT * FROM users WHERE username='$username' AND password='$password' ";
      
       $query = $con ->query($sq);

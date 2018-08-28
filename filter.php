@@ -31,6 +31,12 @@
   </head>
   <?php include('php_action/authenticate_users.php');?>
   <body class="nav-md">
+    <?php
+    if($_SESSION['login_user'] == null)
+     { 
+       header("location: login.php");
+      } else{
+     ?>
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -84,7 +90,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt=""><?php echo $_SESSION['login_user'];?>
+                   <?php echo $_SESSION['login_user'];?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -221,7 +227,7 @@
         <!-- /footer content -->
       </div>
     </div>
-
+    <?php }?>
     <!-- jQuery -->
     <script src="vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -249,7 +255,9 @@
     <!-- bootstrap-daterangepicker -->
     <script src="vendors/moment/min/moment.min.js"></script>
     <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-       <!-- Datatables -->
+   
+    <script src="build/js/custom.min.js"></script>
+        <!-- Datatables -->
     <script src="vendors/datatables.net-bs/js/jquery.dataTables.min.js"></script>
     <script src="vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
@@ -266,6 +274,14 @@
     <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
 	<script src="build/js/special.js"></script>
-    <script src="build/js/custom.min.js"></script>
+
+  <script>
+         $('#summary').DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copy', 'csv', 'excel', 'pdf', 'print',
+        ]
+    });
+  </script>
   </body>
 </html>

@@ -3,7 +3,7 @@
     require_once("../db_connect.php");
  
     // Design initial table header
-    $data = '<table class="table table-bordered table-striped table-condensed">
+    $data = '<table class="table table-bordered table-striped table-condensed" id="our_users">
                         <tr>
                             <th>No.</th>
                             <th>Names</th>
