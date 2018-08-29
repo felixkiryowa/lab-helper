@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+     <link rel="icon" href="images/favicon.ico" type="image/ico" />
     <title>Lab | Helper </title>
 
     <!-- Bootstrap -->
@@ -30,6 +30,7 @@
 
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
+    <link href="build/css/lab-helper.css" rel="stylesheet">
   </head>
   <?php include('php_action/authenticate_users.php');?>
   <?php //include('php_action/trash.php');?>
@@ -45,7 +46,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Lab | Helper</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-h-square"></i></i> <span>Lab | Helper</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -67,7 +68,7 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>Amin Dashboard</h3>
+                <h3>Admin Dashboard</h3>
                 <ul class="nav side-menu">
                   <li><a id="home"><i class="fa fa-home"></i> Home</a></li>
                   <li><a id="users"><i class="fa fa-users"></i> Register User </a></li>
@@ -177,7 +178,7 @@
                        <br>
                         <br>
                         <br>
-                      <form id="demo-form2" action="php_action/trash.php" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                      <form id="demo-form3" action="php_action/trash.php" method="POST" data-parsley-validate class="form-horizontal form-label-left">
                         <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="filter">Filter Data By Month<span class="required"></span>
                         </label>
@@ -320,6 +321,8 @@
                 <div class="form-group">
                     <label for="update_test">Test</label>
                     <input type="text" id="update_test" name="update_test" placeholder="Test" class="form-control"/>
+                     <!-- Suggestions will be displayed in below div. -->
+                     <div id="display" class="forDisplay"></div>
                 </div>
                 <div class="form-group">
                     <label for="update_reception_datetime">Reception Date And Time:</label>
@@ -416,6 +419,18 @@
   <script src="build/js/special.js"></script>
   <script>
  
+   function fill(Value) {
+
+        //Assigning value to "search" div in "search.php" file.
+
+        $('#update_test').val(Value);
+
+        //Hiding "display" div in "search.php" file.
+
+        $('#display').hide();
+
+    }
+
     function DeleteTest(id) {
          var conf = confirm("Are you sure, do you really want to delete a test?");
         if (conf == true) {

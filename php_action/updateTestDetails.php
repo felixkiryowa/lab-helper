@@ -8,8 +8,8 @@ require_once 'db_connect.php'; //if form is submitted if($_POST) { $validator = 
     $test = $_POST['update_test'];
     $receptiondatetime = $_POST['receptiondatetime'];
     $dispatchdatetime = $_POST['dispatchdatetime'];
-    echo $receptiondatetime;
-    echo $dispatchdatetime;
+    // echo $receptiondatetime;
+    // echo $dispatchdatetime;
     $prefered_format1 = DateTime::createFromFormat('d/m/Y H:i:s',$dispatchdatetime)->format('Y-m-d H:i:s');
     $second_date = new DateTime($prefered_format1);
     $prefered_format2 = DateTime::createFromFormat('d/m/Y H:i:s',$receptiondatetime)->format('Y-m-d H:i:s');
@@ -45,20 +45,28 @@ require_once 'db_connect.php'; //if form is submitted if($_POST) { $validator = 
     $actual_time = $interval->format('%a Days:%h hours:%i minutes:%s seconds');
     
 
-    echo $prefered_format1 ."<br>";
-    echo $total_time ."<br>";
-     echo $actual_time;
+    // echo $prefered_format1 ."<br>";
+    // echo $total_time ."<br>";
+    //  echo $actual_time;
 
    
      $update_query = "UPDATE performed_tests SET sample_id='$sample_id',test_id='$updated_test_id',reception_time = '$prefered_format2', dispatch_time = '$prefered_format1',elapsed_time = '$total_time',actual_time = '$actual_time' WHERE id='$id'";
      $query23 = $con->query($update_query);
 
      if($query23 === TRUE) {
-         $validator['success'] = true;
-         $validator['messages'] = "Successfully Completed Updating A Given Test";
+        // $validator['success'] = true;
+         echo "<script>
+              alert('Successfully Completed Updating A Given Test');
+              window.location.href='../dashboard.php';
+         </script>";
+        
      } else {
-         $validator['success'] = false;
-         $validator['messages'] = "Error While Completing A  Test Data";
+        //  $validator['success'] = false;
+        //  $validator['messages'] = "Error While Completing A  Test Data";
+         echo "<script>
+              alert('Error While Completing A  Test Data');
+              window.location.href='../dashboard.php';
+         </script>";
      }
 
      // close the database connection

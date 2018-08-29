@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="images/favicon.ico" type="image/ico" />
+	  <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
     <title>Lab | Helper</title>
 
@@ -38,7 +38,7 @@
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
 	  <link href="build/css/plugin.css" rel="stylesheet">
-	<link href="build/css/lab-helper.css" rel="stylesheet">
+	  <link href="build/css/lab-helper.css" rel="stylesheet">
   </head>
 
   <body class="nav-md">
@@ -47,7 +47,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="#" class="site_title"><i class="fa fa-plus-square"></i> <span>Lab-Helper</span></a>
+              <a href="#" class="site_title"><i class="fa fa-h-square"></i><span>Lab | Helper</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -91,6 +91,7 @@
                       
                     </ul>
                   </li>
+                  <li><a href="login.php"><i class="fa fa-sign-in"></i>  Login as Admin</a></li>
                 </ul>
               </div>
               

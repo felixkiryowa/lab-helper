@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Lab-Helper</title>
+    <link rel="icon" href="images/favicon.ico" type="image/ico" />
+    <title>Lab | Helper</title>
 
     <!-- Bootstrap -->
     <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +26,9 @@
     
     <div class="container" style="padding-top:10px;">
        <div class="row" style="border-style: double;">
-	        <div class="col-sm-4"></div>
+	        <div class="col-sm-4" style="padding-top:5px;">
+             <a href="index.php" class="btn btn-default"><i class="fa fa-arrow-left"></i>   Main Dashboard</a>
+          </div>
 			<div class="col-sm-4">
 			  <h3>Hospital Lab-Helper System</h3>
 			</div>
