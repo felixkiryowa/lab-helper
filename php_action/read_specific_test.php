@@ -16,7 +16,12 @@ if(isset($_POST['id']) && isset($_POST['id']) != "")
     $response = array();
     if(mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            $response = $row;
+            $response = [
+                $row['sample_id'],
+                $row['test'],
+                DateTime::createFromFormat('Y-m-d H:i:s',$row['reception_time'])->format('d/m/Y H:i:s'),
+                DateTime::createFromFormat('Y-m-d H:i:s', $row['dispatch_time'])->format('d/m/Y H:i:s')
+            ];
         }
     }
     else

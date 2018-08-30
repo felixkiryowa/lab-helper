@@ -32,14 +32,98 @@ function get_months_for_deleting_data() {
     });
 }
 
+function get_months_for_plotting_graph() {
+    $.ajax({
+        url: "php_action/get_months.php",
+        method: "GET",
+        dataType: [],
+        success: function (response) {
+            //alert(response);
+            var months = $.parseJSON(response);
+            //alert(months.length);
+            for (index = 0; index < months.length; index++) {
+                $("#favourite_month").append("<option value='" + months[index] + "'>" + months[index] + "</option>");
+
+            }
+        }
+    });
+}
+
 //populating a select with months 
 $(document).ready(function () {
     get_months();
-    get_months_for_deleting_data()
+    get_months_for_deleting_data();
+    get_months_for_plotting_graph()
     readRecords();
 
-    $("#sel_month").change(function () {
+    $('#close').click(function(){
+        window.location.href="../../dashboard.php";
+    });
+//plotting a graph
+    $("#favourite_month").change(function () {
+        var month = $(this).val();
         
+        $.ajax({
+            url: 'php_action/plot_graph.php',
+            type: 'post',
+            data: { month: month },
+            dataType: [],
+            success: function (response) {
+                $('#analysis_modal').modal('show');
+                //$('#myModalLabel').html();
+                var test_data = JSON.parse(response);
+                var tests_array = test_data[0];
+                //alert(tests_array[0]);
+                var save_fine = test_data[1];
+                var save_not_fine = test_data[2]
+
+                $('#my-chart').highcharts({
+
+                chart: {
+
+                    type: 'column'
+
+                },
+
+                title: {
+
+                    text: "Tests Data Analysis In  " + month
+
+                },
+
+                xAxis: {
+
+                    categories: tests_array
+
+                },
+
+                yAxis: {
+
+                    title: {
+
+                        text: 'No of Tests'
+
+                    }
+
+                },
+
+                series: [{
+
+                    name: 'Done In Time',
+
+                    data: save_fine
+
+                }, {
+
+                    name: 'Not Done In Time',
+
+                    data: save_not_fine
+
+                }]
+
+                });
+            }
+        });
     });
 
 
@@ -48,6 +132,8 @@ $(document).ready(function () {
         $('#display_users').show();
         $('#div_delete_data').hide();
         $('#div_manage_tests').hide();
+        $('#div_grahp').hide();
+
     });
 
     $('#home').click(function(){
@@ -55,6 +141,8 @@ $(document).ready(function () {
         $('#display_users').hide();
         $('#div_delete_data').hide();
         $('#div_manage_tests').hide();
+        $('#div_grahp').hide();
+
     });
 
 
@@ -63,14 +151,25 @@ $(document).ready(function () {
         $('#display_users').hide();
         $('#div_delete_data').show();
         $('#div_manage_tests').hide();
+        $('#div_grahp').hide();
+
     });
 
      $('#tests_manager').click(function () {
          $('#div_filter').hide();
          $('#display_users').hide();
          $('#div_delete_data').hide();
+         $('#div_grahp').hide();
          $('#div_manage_tests').show();
      });
+
+    $('#tests_graph').click(function () {
+        $('#div_filter').hide();
+        $('#display_users').hide();
+        $('#div_delete_data').hide();
+        $('#div_grahp').show();
+        $('#div_manage_tests').hide();
+    });
 
     $("#manage_tests").DataTable({
         "dom": 'Bfrtip',

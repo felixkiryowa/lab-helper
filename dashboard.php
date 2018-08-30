@@ -74,6 +74,7 @@
                   <li><a id="users"><i class="fa fa-users"></i> Register User </a></li>
                   <li><a id="trash"><i class="fa fa-trash"></i> Trash Data </a></li>
                   <li><a id="tests_manager"><i class="fa fa-file-text-o"></i> Manage Tests </a></li>
+                  <li><a id="tests_graph"><i class="fa fa-bar-chart"></i>Chart</a></li>
                 </ul>
               </div>
               
@@ -117,6 +118,38 @@
                 <div class="x_panel">
                  
                   <div class="x_content">
+
+                  <!--generate chart-->
+                    <div class="col-md-12 col-sm-12 col-xs-12" id="div_grahp" style="display:none;">
+                      <h3 align="center">Generate analysis</h3>
+                       <br>
+                        <br>
+                        <br>
+                        <br>
+                      <form  class="form-horizontal form-label-left">
+                        <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="filter">Filter Data By Month<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select id="favourite_month" name="month" class="form-control col-md-7 col-xs-12">
+                            <option value="0">- Select -</option>
+                          </select>
+                        </div>
+                        <!-- <button class="btn btn-sm btn-primary" type="submit" name="filter">Filter</button> -->
+                        </div>
+                        
+                      </form>
+				               <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                    <!-- generate chart -->
                   
                     <div class="col-md-12 col-sm-12 col-xs-12" id="div_filter">
                       <h3 align="center">Filter Data By Month</h3>
@@ -354,6 +387,50 @@
 </div>
 <!-- // Modal -->
 
+<!-- Analysis of Tests -->
+<!-- <div class="modal fade" id="analysis_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" align="center" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+               <div id="my-chart"></div>
+            </div>
+    </div>
+    <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Cancel</button>
+     </div>
+</div> -->
+<!-- // Modal -->
+
+<!--modal to add content-->
+         <div class="modal fade" id="analysis_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel"></h4>
+                        </div>
+                        
+                        <div class="modal-body">
+                           <div id="my-chart"></div>
+                           <div class="modal-footer">
+                              <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
+                           </div>
+                        </div>
+                          
+                        </div>
+                        
+                        
+                      </div>
+                    </div>
+                  </div>
+        <!--modal to add content-->
+
 
         <!-- footer content -->
         <footer>
@@ -414,7 +491,8 @@
     
     <!-- Custom Theme Scripts -->
 
-	
+	<script src="build/js/highcharts.js"></script>
+  <script src="build/js/exporting.js"></script>
   <script src="build/js/custom.min.js"></script>
   <script src="build/js/special.js"></script>
   <script>
@@ -455,55 +533,22 @@
           function (data, status) {
               // PARSE json data
               var test = JSON.parse(data);
-              var reception_datetime = test.reception_time;
-              var dispatch_datetime = test.dispatch_time;
+              // var reception_datetime = test.reception_time;
+              // var dispatch_datetime = test.dispatch_time;
               // alert(reception_datetime);
               // alert(dispatch_datetime);
               // Assing existing values to the modal popup fields
-              $("#update_sample_id").val(test.sample_id);
-              $("#update_test").val(test.test);
-              $("#update_receptiondatetime").val(reception_datetime);
-              $("#update_dispatchdatetime").val(dispatch_datetime);
+              $("#update_sample_id").val(test[0]);
+              $("#update_test").val(test[1]);
+              $("#update_receptiondatetime").val(test[2]);
+              $("#update_dispatchdatetime").val(test[3]);
           }
       );
       // Open modal popup
       $("#update_test_modal").modal("show");
     }
 
-    // function UpdateTestDetails(){
-    //    // get values
-    // var sample_id = $("#update_sample_id").val();
-    // var test = $("#update_test").val();
-    // var receptiondatetime = $("#update_receptiondatetime").val();
-    // var dispatchdatetime = $("#update_dispatchdatetime").val();
- 
-    // // get hidden field value
-    // var id = $("#hidden_test_id").val();
- 
-    // // Update the details by requesting to the server using ajax
-    // $.post("php_action/updateTestDetails.php", {
-    //         id: id,
-    //         sample_id: sample_id,
-    //         test: test,
-    //         receptiondatetime: receptiondatetime,
-    //         dispatchdatetime: dispatchdatetime
-    //     },
-    //     function (data, status) {
-    //         if(data.success == true){
-    //               // hide modal popup
-    //               $("#update_test_modal").modal("hide");
-    //               // reload Users by using readRecords();
-    //               alert("Successfully Updated Test Information");
-    //             window.location.href='dashboard.php';
-    //         }else{
-    //             alert("Failed To Update Test Information");
-    //         }
-          
-    //     }
-    // );
-
-    // }
-
+  
       
       // READ records
     function readRecords() {
