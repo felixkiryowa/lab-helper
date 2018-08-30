@@ -2,16 +2,16 @@
 
 require_once 'db_connect.php';
 
-$specific_test = $_POST['specific_test'];
+$id = $_POST['id'];
 
-$sql1 = "SELECT * FROM laboratory_test_menu WHERE test = '$specific_test'";
+$sql1 = "SELECT * FROM laboratory_test_menu WHERE id = $id";
 $query1 = $con -> query($sql1);
 $row2 = $query1->fetch_assoc();
 $test_name = $row2['test'];
 
-$test_id = $row2['id'];
+//$test_id = $row2['id'];
 $turn_around_time = $row2['turn_around_time'];
-$sql = "SELECT * FROM performed_tests WHERE test_id = $test_id";
+$sql = "SELECT * FROM performed_tests WHERE test_id = $id";
 
 $query = $con->query($sql);
 $fine_array = array();

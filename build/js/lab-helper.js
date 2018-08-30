@@ -153,15 +153,18 @@ $(document).ready(function(){
                                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
                                 '<strong> <span class="glyphicon glyphicon-ok-sign"></span> </strong>' + response.messages +
                                 '</div>');
-
+                            
                             // reset the form
                             $("#createTestForm")[0].reset();
 
                             // reload the datatables
                             lab_testTable.ajax.reload(null, false);
                             // this function is built in function of datatables;
-                            //$('#details_section').load('php_action/details_about_a_test.php');
-                            $('#total_test_in_db').load('php_action/total_tests.php');
+                            // $('.child_menu').load('php_action/details_about_a_test.php');
+                            //$('#total_test_in_db').load('php_action/total_tests.php');
+
+                            get_test_details();
+                           
 
 
                         } else {
@@ -180,41 +183,15 @@ $(document).ready(function(){
         });
     });
 
+    get_test_details();
+
+    
+
    //clicking a specific tes
     $('.specific_test').click(function(){
         var specific_test = $(this).attr("id");
-        $(".my-progress-bar").html("");
-        // alert(specific_test);
-        $.ajax({
-            url: "php_action/test_details.php",
-            method: "POST",
-            data: {
-                specific_test: specific_test
-            },
-            dataType: [],
-            success: function(response) {
-                $('#details_about_a_test').modal('show');
-                var res = $.parseJSON(response);
-                // alert(res.result[0])
-                var fine = res.result[0];
-                var not_fine = res.result[1];
-                var total = res.result[3];
-                var percentage = parseInt((fine / total) * 100);
-                var fine_percentage = 
-                $('.test_title').html(res.result[2]);
-                $('#fine').html(fine);
-                $('#not_fine').html(not_fine);
-                $(".my-progress-bar").circularProgress({
-                    line_width: 4,
-                    color: "red",
-                    starting_position: 0, // 12.00 o' clock position, 25 stands for 3.00 o'clock (clock-wise)
-                    percent: 0, // percent starts from
-                    percentage: true,
-                    text: "Completed " + res.result[2] + ", Tests Done In Required Time"
-                }).circularProgress('animate',percentage, 2000);
-
-            }
-        });
+        alert(specific_test);
+      
    });
   
 });
@@ -241,7 +218,24 @@ $('#close').click(function(){
 });
 
 
+function get_test_details() {
+    $.ajax({
+        url: "php_action/details_about_a_test.php",
+        method: "GET",
+        dataType: [],
+        success: function (response) {
+            $(".child_menu").html(response);
+             //alert(response);
+            //  var tests = $.parseJSON(response);
+            //alert(months.length);
+            //  for (index = 0; index < tests.length; index++) {
+            //     $(".child_menu").append('<li><a href="#" id="'+ tests[index]+'" class="specific_test" >'+ tests[index]+'</a></li>');
+            //    // $("#child_menu").append("<option value='" + months[index] + "'>" + months[index] + "</option>");
 
+            // }
+        }
+    });
+}
 
 
 

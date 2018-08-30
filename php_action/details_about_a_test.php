@@ -17,10 +17,20 @@
 
             // echo json_encode($test_array);
 
-                
+            $test_details ='';
             foreach ($test_array as  $value) {
-                echo '<li><a href="#" id="'.$value.'" class="specific_test" >'.$value.'</a></li>';
+                //"<li><a href='#' id='' ></a></li>"
+                $sql1 = "SELECT * FROM laboratory_test_menu WHERE test='$value'";
+                $query1 = $con->query($sql1);
+                $row1 = $query1->fetch_assoc();
+                $id =$row1['id'];
+                $test_details .= '<li><a href="#"  onclick="SpecificTest('.$id.')" >'.$value.'</a></li>';
             }
+            // echo $test_details;
+            // $response = array();
 
+            // $response = $test_array;
+
+            echo $test_details;
                               
  ?>

@@ -57,37 +57,12 @@
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
+              <div class="menu_section" >
                 <h3>DETAILS</h3>
                 <ul class="nav side-menu">
                    <li><a><i class="fa fa-eye"></i>  Tests In Details  <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu" >
-					                   <?php
-
-                                require_once 'php_action/db_connect.php';
-
-                                $sql = "SELECT test FROM laboratory_test_menu INNER JOIN performed_tests ON laboratory_test_menu.id=performed_tests.test_id";
-                                $query = $con->query($sql);
-                                $test_array = array();
-                                
-                                while ($row = mysqli_fetch_array($query) ) {
-                                    if(in_array($row['test'],$test_array)){
-
-                                    }else{
-                                    array_push($test_array,$row['test']);
-                                    }
-                            
-                                }
-
-                                // echo json_encode($test_array);
-
-                                    
-                                foreach ($test_array as  $value) {
-                                    echo '<li><a href="#" id="'.$value.'" class="specific_test" >'.$value.'</a></li>';
-                                }
-
-                              
-                         ?>  
+                    <ul class="nav child_menu">
+					                  
                       
                     </ul>
                   </li>
@@ -397,5 +372,41 @@
      <script src="build/js/plugin.js"></script>
      <script src="build/js/custom.min.js"></script>
 	   <script src="build/js/lab-helper.js"></script>
+     <script>
+        function SpecificTest(id){
+          $(".my-progress-bar").html("");
+        // alert(specific_test);
+        $.ajax({
+            url: "php_action/test_details.php",
+            method: "POST",
+            data: {
+                id: id
+            },
+            dataType: [],
+            success: function(response) {
+                $('#details_about_a_test').modal('show');
+                var res = $.parseJSON(response);
+                // alert(res.result[0])
+                var fine = res.result[0];
+                var not_fine = res.result[1];
+                var total = res.result[3];
+                var percentage = parseInt((fine / total) * 100);
+                var fine_percentage = 
+                $('.test_title').html(res.result[2]);
+                $('#fine').html(fine);
+                $('#not_fine').html(not_fine);
+                $(".my-progress-bar").circularProgress({
+                    line_width: 4,
+                    color: "red",
+                    starting_position: 0, // 12.00 o' clock position, 25 stands for 3.00 o'clock (clock-wise)
+                    percent: 0, // percent starts from
+                    percentage: true,
+                    text: "Completed " + res.result[2] + ", Tests Done In Required Time"
+                }).circularProgress('animate',percentage, 2000);
+
+            }
+        });
+        }
+     </script>
   </body>
 </html>
